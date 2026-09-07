@@ -379,6 +379,15 @@ h1, h2, h3 {
   color: var(--pitch-dark);
 }
 
+.site-footer__deadline {
+  margin-top: 0.75rem;
+  font-family: var(--display);
+  font-style: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+
 /* ---------------- Responsive ---------------- */
 
 @media (max-width: 520px) {
