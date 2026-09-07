@@ -206,11 +206,16 @@ h1, h2, h3 {
 }
 
 .row--leader td {
-  border-left: 4px solid var(--gold);
+  border-top: 3px solid var(--gold);
+  border-bottom: 3px solid var(--gold);
 }
 
 .row--leader td:first-child {
-  padding-left: calc(0.75rem - 4px);
+  border-left: 3px solid var(--gold);
+}
+
+.row--leader td:last-child {
+  border-right: 3px solid var(--gold);
 }
 
 .table-footnote {
@@ -308,6 +313,63 @@ h1, h2, h3 {
   color: var(--gold);
 }
 
+/* ---------------- Hall of Fame ---------------- */
+
+.hof-section {
+  padding-bottom: 2.5rem;
+}
+
+.hof-intro {
+  max-width: 760px;
+  margin: 1rem auto 0;
+  padding: 0 1.5rem;
+  font-style: italic;
+  color: var(--pitch-dark);
+}
+
+.hof-table {
+  width: 100%;
+  max-width: 760px;
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.hof-table thead th {
+  text-align: left;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.hof-table td {
+  padding: 0.85rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.hof-table tbody tr:nth-child(odd) {
+  background: rgba(30, 77, 43, 0.06);
+}
+
+.hof-count {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.hof-years {
+  display: block;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--pitch-dark);
+  margin-top: 0.2rem;
+}
+
 /* ---------------- Footer ---------------- */
 
 .site-footer {
@@ -333,6 +395,15 @@ h1, h2, h3 {
   }
   .league-table td, .league-table th {
     padding: 0.6rem 0.4rem;
+  }
+  .hof-table {
+    font-size: 0.82rem;
+  }
+  .hof-table td, .hof-table th {
+    padding: 0.6rem 0.4rem;
+  }
+  .hof-years {
+    font-size: 0.68rem;
   }
 }
 
