@@ -1,0 +1,361 @@
+/* ---------------------------------------------
+   Saggy Dads Pro League — matchday programme theme
+--------------------------------------------- */
+
+:root {
+  --pitch: #1E4D2B;
+  --pitch-dark: #163B21;
+  --chalk: #F2EFE6;
+  --ink: #14201A;
+  --gold: #D9A62E;
+  --rust: #B33A2E;
+  --line: rgba(20, 32, 26, 0.15);
+
+  --display: "Anton", sans-serif;
+  --body: "Source Serif 4", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--chalk);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ---------------- Hero ---------------- */
+
+.hero {
+  background: var(--pitch);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 0px,
+      rgba(255, 255, 255, 0.035) 60px,
+      transparent 60px,
+      transparent 120px
+    );
+  color: var(--chalk);
+  padding: 4rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.ticket {
+  position: relative;
+  background: var(--chalk);
+  color: var(--ink);
+  padding: 1.75rem 2.5rem;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  border: 2px dashed var(--ink);
+}
+
+.ticket-notch {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--pitch-dark);
+  border-radius: 50%;
+}
+
+.ticket-notch--left {
+  left: -13px;
+}
+
+.ticket-notch--right {
+  right: -13px;
+}
+
+.hero__league {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.5rem;
+  color: var(--rust);
+}
+
+.hero__gw {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  line-height: 1;
+}
+
+.hero__sub {
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--pitch-dark);
+}
+
+.hero__leader {
+  text-align: center;
+}
+
+.hero__leader-label {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.hero__leader-name {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.hero__leader-team {
+  margin: 0.15rem 0 0.75rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.hero__score {
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 16vw, 7rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--chalk);
+}
+
+.hero__score-label {
+  margin: 0.25rem 0 0;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+/* ---------------- Section titles ---------------- */
+
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  padding: 2.5rem 1.5rem 1.25rem;
+  max-width: 760px;
+  margin: 0 auto;
+  border-bottom: 3px solid var(--ink);
+}
+
+.section-title--inverse {
+  color: var(--chalk);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------------- League table ---------------- */
+
+.table-section {
+  padding-bottom: 1rem;
+}
+
+.league-table {
+  width: 100%;
+  max-width: 760px;
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.league-table thead th {
+  text-align: left;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.league-table td {
+  padding: 0.85rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.league-table tbody tr:nth-child(odd) {
+  background: rgba(30, 77, 43, 0.06);
+}
+
+.league-table .net {
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.row--leader td {
+  border-left: 4px solid var(--gold);
+}
+
+.row--leader td:first-child {
+  padding-left: calc(0.75rem - 4px);
+}
+
+.row--last td {
+  border-left: 4px solid var(--rust);
+}
+
+.row--last td:first-child {
+  padding-left: calc(0.75rem - 4px);
+}
+
+.table-footnote {
+  max-width: 760px;
+  margin: 1rem auto 0;
+  padding: 0 1.5rem;
+  font-style: italic;
+  color: var(--pitch-dark);
+}
+
+/* ---------------- Match reports ---------------- */
+
+.reports-section {
+  padding-bottom: 1rem;
+}
+
+.report {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.report__marker {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.report__pos {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  color: var(--gold);
+  background: var(--ink);
+  padding: 0.35rem 0.7rem;
+  display: inline-block;
+}
+
+.report__body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.report__body p {
+  margin: 0;
+}
+
+.report--last .report__pos {
+  background: var(--rust);
+}
+
+.stitch {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.stitch::before {
+  content: "";
+  display: block;
+  border-top: 2px dashed var(--line);
+}
+
+/* ---------------- Headlines ---------------- */
+
+.headlines-section {
+  background: var(--ink);
+  margin-top: 3rem;
+  padding-bottom: 2.5rem;
+}
+
+.headlines {
+  list-style: none;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.headline {
+  color: var(--chalk);
+  font-family: var(--display);
+  font-size: 1.15rem;
+  line-height: 1.35;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(242, 239, 230, 0.15);
+}
+
+.headline:last-child {
+  border-bottom: none;
+}
+
+.headline--big {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--gold);
+}
+
+.headline--rust {
+  color: var(--rust);
+}
+
+/* ---------------- Footer ---------------- */
+
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
+  font-style: italic;
+  color: var(--pitch-dark);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 520px) {
+  .report {
+    grid-template-columns: 60px 1fr;
+    gap: 0.9rem;
+  }
+  .report__pos {
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .league-table {
+    font-size: 0.9rem;
+  }
+  .league-table td, .league-table th {
+    padding: 0.6rem 0.4rem;
+  }
+}
+
+/* ---------------- Accessibility: focus ---------------- */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
