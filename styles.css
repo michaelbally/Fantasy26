@@ -29,6 +29,11 @@ html {
   }
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--chalk);
@@ -179,6 +184,12 @@ h1, h2, h3 {
   padding: 0 1.5rem;
   border-collapse: collapse;
   font-size: 1rem;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .league-table thead th {
