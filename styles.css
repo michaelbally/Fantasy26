@@ -58,29 +58,12 @@ h1, h2, h3 {
 .site-nav__inner {
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   padding: 0.85rem 1.5rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.site-nav__brand {
-  font-family: var(--display);
-  color: var(--chalk);
-  text-decoration: none;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  margin-right: 0.5rem;
-  flex-shrink: 0;
-}
-
-.site-nav__links {
-  display: flex;
-  gap: 1.25rem;
-  white-space: nowrap;
 }
 
 .site-nav__link {
@@ -91,7 +74,12 @@ h1, h2, h3 {
   letter-spacing: 0.03em;
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
-  flex-shrink: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.site-nav__link::-webkit-details-marker {
+  display: none;
 }
 
 .site-nav__link:hover,
@@ -102,6 +90,70 @@ h1, h2, h3 {
 .site-nav__link.is-active {
   color: var(--gold);
   border-bottom-color: var(--gold);
+}
+
+.site-nav__dropdown > summary::after {
+  content: " ▾";
+  font-size: 0.7em;
+}
+
+.site-nav__dropdown[open] > summary::after {
+  content: " ▴";
+}
+
+.site-nav__panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.75rem;
+  width: min(90vw, 360px);
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--chalk);
+  border: 2px solid var(--ink);
+  padding: 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  z-index: 30;
+}
+
+.site-nav__panel a {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.45rem 0.2rem;
+  background: var(--pitch);
+  color: var(--chalk);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.site-nav__panel a:hover,
+.site-nav__panel a:focus-visible {
+  border-color: var(--gold);
+}
+
+.site-nav__panel a.is-active {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+@media (max-width: 420px) {
+  .site-nav__inner {
+    gap: 1rem;
+  }
+  .site-nav__panel {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@supports not (gap: 1rem) {
+  .site-nav__link {
+    margin: 0 0.75rem;
+  }
 }
 
 /* ---------------- Hero ---------------- */

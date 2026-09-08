@@ -13,14 +13,16 @@
 
   <nav class="site-nav">
     <div class="site-nav__inner">
-      <a href="index.html" class="site-nav__brand">Saggy Dads Pro League</a>
-      <div class="site-nav__links">
-        <a href="index.html" class="site-nav__link">Latest</a>
-        <a href="gw1.html" class="site-nav__link">GW1</a>
-        <a href="gw2.html" class="site-nav__link">GW2</a>
-        <a href="gw3.html" class="site-nav__link">GW3</a>
-        <a href="hall-of-fame.html" class="site-nav__link is-active">Hall of Fame</a>
-      </div>
+      <a href="index.html" class="site-nav__link">Latest</a>
+      <details class="site-nav__dropdown">
+        <summary class="site-nav__link">Gameweeks</summary>
+        <div class="site-nav__panel">
+          <a href="gw1.html">GW1</a>
+          <a href="gw2.html">GW2</a>
+          <a href="gw3.html">GW3</a>
+        </div>
+      </details>
+      <a href="hall-of-fame.html" class="site-nav__link is-active">Hall of Fame</a>
     </div>
   </nav>
 
@@ -99,6 +101,15 @@
   <footer class="site-footer">
     <p>History gets written one gameweek at a time.</p>
   </footer>
+
+<script>
+  // Close the gameweek dropdown when clicking outside it.
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.site-nav__dropdown[open]').forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+</script>
 
 </body>
 </html>
