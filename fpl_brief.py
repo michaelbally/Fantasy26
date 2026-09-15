@@ -80,7 +80,7 @@ def main():
     say = out.append
 
     # ---- 1. bootstrap: the lookup table everything joins against -----------
-    bs = fetch("/bootstrap-static/", cache_as="bootstrap.json")
+    bs = fetch("/bootstrap-static/")
     players = {e["id"]: e for e in bs["elements"]}
     teams = {t["id"]: t["short_name"] for t in bs["teams"]}
     events = {e["id"]: e for e in bs["events"]}
