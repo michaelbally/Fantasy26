@@ -290,6 +290,10 @@ h1, h2, h3 {
   text-align: center;
 }
 
+.hof-hero .hero__league {
+  color: var(--gold);
+}
+
 .hof-hero__title {
   font-size: clamp(2.4rem, 7vw, 3.4rem);
   margin: 0.5rem 0;
