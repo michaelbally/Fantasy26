@@ -5,7 +5,7 @@
   Each new gameweek: change LATEST_GW below. That's the only edit.
 */
 (function () {
-  var LATEST_GW = 6;
+  var LATEST_GW = 7;
 
   var nav = document.getElementById('site-nav');
   if (!nav) return;
@@ -33,6 +33,7 @@
         '<div class="site-nav__panel">' + chips + '</div>' +
       '</details>' +
       '<a href="stats.html" class="site-nav__link' + active(page === 'stats') + '">Stats</a>' +
+      '<a href="managers.html" class="site-nav__link' + active(page === 'managers') + '">Managers</a>' +
       '<a href="hall-of-fame.html" class="site-nav__link' + active(page === 'hall-of-fame') + '">Hall of Fame</a>' +
     '</div>';
 

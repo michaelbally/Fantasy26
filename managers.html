@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manager Cards — Saggy Dads Pro League</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav">
+    <noscript>
+      <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__link">Latest</a>
+        <a href="stats.html" class="site-nav__link">Stats</a>
+        <a href="managers.html" class="site-nav__link is-active">Managers</a>
+        <a href="hall-of-fame.html" class="site-nav__link">Hall of Fame</a>
+      </div>
+    </noscript>
+  </nav>
+  <script src="nav.js"></script>
+
+  <header class="hof-hero">
+    <p class="hero__league">Saggy Dads Pro League</p>
+    <h1 class="hof-hero__title">Manager Cards</h1>
+    <p class="hero__sub">collect all six</p>
+  </header>
+
+  <main>
+    <p class="hof-intro" id="cards-intro">Season to date, in league order.</p>
+    <div class="cards" id="cards">
+      <noscript><p>The manager cards need JavaScript to load.</p></noscript>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Cards update after every gameweek.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    (function () {
+      var L = window.LEAGUE;
+      var host = document.getElementById('cards');
+      if (!L || !host) return;
+
+      var gws = L.gameweeks;
+      var last = gws[gws.length - 1].gw;
+      document.getElementById('cards-intro').textContent =
+        'Season to date after Gameweek ' + last + ', in league order.';
+
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function plural(n, word) { return n + ' ' + word + (n === 1 ? '' : 's'); }
+
+      // Best score in each gameweek, so we can count wins (ties count for everyone).
+      var topScore = {};
+      gws.forEach(function (g) {
+        var best = -Infinity;
+        Object.keys(g.results).forEach(function (id) { best = Math.max(best, g.results[id].pts); });
+        topScore[g.gw] = best;
+      });
+
+      var cards = L.managers.map(function (m) {
+        var weeks = gws.map(function (g) { return { gw: g.gw, r: g.results[m.id] }; });
+        var total = 0, bench = 0, trans = 0, hitPts = 0, hitCount = 0, capSum = 0, wins = 0, awards = 0;
+        var best = weeks[0], worst = weeks[0], chips = [];
+        weeks.forEach(function (w) {
+          total += w.r.pts; bench += w.r.bench; trans += w.r.tr; capSum += w.r.cap;
+          if (w.r.hit) { hitPts += w.r.hit; hitCount += 1; }
+          if (w.r.pts > best.r.pts) best = w;
+          if (w.r.pts < worst.r.pts) worst = w;
+          if (w.r.pts === topScore[w.gw]) wins += 1;
+          if (w.r.chip) chips.push(w.r.chip + ' in Gameweek ' + w.gw);
+        });
+        gws.forEach(function (g) {
+          Object.keys(g.awards || {}).forEach(function (k) {
+            if (g.awards[k].indexOf(m.id) !== -1) awards += 1;
+          });
+        });
+        return { m: m, total: total, n: weeks.length, best: best, worst: worst, wins: wins,
+                 bench: bench, trans: trans, hitPts: hitPts, hitCount: hitCount,
+                 cap: capSum / weeks.length, chips: chips, awards: awards };
+      });
+
+      cards.sort(function (a, b) { return b.total - a.total; });
+
+      // Awards only exist from the first gameweek that has any.
+      var firstAwardGw = null;
+      gws.forEach(function (g) {
+        if (firstAwardGw === null && Object.keys(g.awards || {}).length) firstAwardGw = g.gw;
+      });
+
+      function row(label, value, note) {
+        return '<li><span>' + esc(label) + '</span><span class="mcard__val">' + esc(value) +
+          (note ? '<span class="mcard__note">' + esc(note) + '</span>' : '') + '</span></li>';
+      }
+
+      host.innerHTML = cards.map(function (c, i) {
+        var tNotes = [];
+        if (c.hitCount) tNotes.push(plural(c.hitCount, 'hit') + ', −' + c.hitPts + ' points');
+        if (c.chips.length) tNotes.push(c.chips.join(', '));
+        var rows = [
+          row('Average per gameweek', (c.total / c.n).toFixed(1)),
+          row('Best gameweek', c.best.r.pts, 'Gameweek ' + c.best.gw),
+          row('Worst gameweek', c.worst.r.pts, 'Gameweek ' + c.worst.gw),
+          row('Gameweek wins', c.wins),
+          row('Points benched', c.bench),
+          row('Average captain return', c.cap.toFixed(1)),
+          row('Transfers', c.trans, tNotes.join('; '))
+        ];
+        if (firstAwardGw !== null) {
+          rows.push(row('Awards won', c.awards, 'since Gameweek ' + firstAwardGw));
+        }
+        rows.push(row('League titles', c.m.titles,
+          c.m.runnersUp + ' runner-up' + (c.m.runnersUp === 1 ? '' : 's') + ' in ' + c.m.seasons + ' seasons'));
+
+        return '<article class="mcard">' +
+          '<header class="mcard__head">' +
+            '<span class="mcard__pos" aria-label="Position ' + (i + 1) + '">' + (i + 1) + '</span>' +
+            '<div><h2 class="mcard__team">' + esc(c.m.team) + '</h2>' +
+            '<p class="mcard__name">' + esc(c.m.name) + '</p></div>' +
+          '</header>' +
+          '<p class="mcard__total"><span>Total points</span><strong>' + c.total + '</strong></p>' +
+          '<ul class="mcard__stats">' + rows.join('') + '</ul>' +
+          '<p class="mcard__scout">' + esc(c.m.tagline) + '</p>' +
+        '</article>';
+      }).join('');
+    })();
+  </script>
+
+</body>
+</html>
